@@ -1,0 +1,11 @@
+{
+    "users": [
+        {
+            "userID": null,
+            "username": "kong",
+            "password": "password",
+            "email": "kong0240@umn.edu"
+        }
+    ],
+    "plants": []
+}
