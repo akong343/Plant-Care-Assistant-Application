@@ -1,4 +1,4 @@
-import json
+import json #retains user input data
 
 class User:
     def __init__(self, username, password, email):
