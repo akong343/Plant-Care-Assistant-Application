@@ -6,4 +6,4 @@ A Plant Care Assistant application, intended to function as a personal companion
 ## How to Run and Use the Program
 1. Clone the repo
 2. Install dependencies: `pip install -r requirements.txt`
-3. Run the application with: `python app.py`
+3. Run the application with: `python main.py`
