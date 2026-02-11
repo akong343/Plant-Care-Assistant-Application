@@ -1,4 +1,6 @@
-import json #retains user input data
+import json  # Retains user input data
+import time  # For sleeping to simulate reminders
+from datetime import datetime, timedelta  # For tracking time
 
 class User:
     def __init__(self, username, password, email):
@@ -18,11 +20,12 @@ class User:
 
 
 class Plant:
-    def __init__(self, species, watering_frequency, health_status):
-        self.plantID = None  # To be generated later
+    def __init__(self, species, watering_frequency, health_status, last_watered=None, plantID=None):
+        self.plantID = plantID  # To be generated later or loaded from JSON
         self.species = species
         self.watering_frequency = watering_frequency
         self.health_status = health_status
+        self.last_watered = last_watered or datetime.now()  # Keep track of last watering date
 
     def add_plant(self):
         pass
@@ -32,6 +35,14 @@ class Plant:
 
     def delete_plant(self):
         pass
+
+    def needs_watering(self):
+        """Check if the plant needs watering based on the frequency."""
+        return (datetime.now() - self.last_watered) > timedelta(days=self.watering_frequency)
+
+    def water_plant(self):
+        """Water the plant and update the last watered date."""
+        self.last_watered = datetime.now()
 
 
 def load_data(filename):
@@ -77,7 +88,7 @@ def main():
             if user and user['password'] == password:
                 print("Login successful!")
                 while True:
-                    plant_choice = input("1. Add Plant\n2. View Plants\n3. Edit Plant\n4. Remove Plant\n5. Exit\nChoose an option: ")
+                    plant_choice = input("1. Add Plant\n2. View Plants\n3. Edit Plant\n4. Remove Plant\n5. Check Reminders\n6. Exit\nChoose an option: ")
                     
                     if plant_choice == '1':  # Add Plant
                         species = input("Enter plant species: ")
@@ -95,7 +106,7 @@ def main():
                             print("Your plants:")
                             for index, plant in enumerate(plants):
                                 print(f"{index + 1}. {plant['species']} - Water every {plant['watering_frequency']} days - Health: {plant['health_status']}")
-                        
+
                     elif plant_choice == '3':  # Edit Plant
                         if not plants:
                             print("No plants to edit.")
@@ -131,7 +142,19 @@ def main():
                             else:
                                 print("Invalid plant selection.")
 
-                    elif plant_choice == '5':
+                    elif plant_choice == '5':  # Check Reminders
+                        for index, plant in enumerate(plants):
+                            p = Plant(**plant)  # Create a Plant object to use methods
+                            if p.needs_watering():
+                                print(f"{p.species} needs watering.")
+                            else:
+                                print(f"{p.species} is okay for now.")
+
+                        # Simulate the reminder for watering action
+                        time.sleep(5)  # Sleep for 5 seconds to simulate waiting for reminders
+                        print("Reminders checked.")
+
+                    elif plant_choice == '6':
                         break
                     else:
                         print("Invalid option.")

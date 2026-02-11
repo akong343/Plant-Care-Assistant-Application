@@ -7,5 +7,24 @@
             "email": "kong0240@umn.edu"
         }
     ],
-    "plants": []
+    "plants": [
+        {
+            "plantID": null,
+            "species": "Bonsai",
+            "watering_frequency": 4,
+            "health_status": "Yellow"
+        },
+        {
+            "plantID": null,
+            "species": "Lucky Bamboo",
+            "watering_frequency": 3,
+            "health_status": "green"
+        },
+        {
+            "plantID": null,
+            "species": "Avacado",
+            "watering_frequency": 3,
+            "health_status": "Seed"
+        }
+    ]
 }
